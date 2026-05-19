@@ -106,8 +106,12 @@ ssh -v MohammedS1998@128.140.85.215
 
 ```bash
 # 1) The ssh-keygen command you ran
+ssh-keygen -t ed25519 -C "mohamed@farouk.de" 
 # 2) The file paths of the generated keys
+/home/MohammedS1998/task2
+/home/MohammedS1998/task2.pub
 # 3) Your written explanation (3–5 sentences) of the signature process
+Der Server schickt dem Client eine mathematische Herausforderung. Dann schickt der Client seine Signatur zurück. Der Server hat bereits den Schlüssel, vergleicht beide miteinander und wenn es passt, ist es richtig. Ed25519 wird genutzt, weil es effizienter, schneller und
 ```
 
 ---
