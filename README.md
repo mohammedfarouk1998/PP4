@@ -58,7 +58,28 @@ In this exercise you will:
 # 1) The exact ssh command you ran
 # 2) A detailed, step-by-step explanation of what happened at each stage
 ```
+## Aufgabe 1: SSH-Login-Protokollanalyse (Task 1)
 
+### 1) Der exakte SSH-Befehl:
+ssh -v MohammedS1998@128.140.85.215
+
+### 2) Detaillierte Schritt-für-Schritt-Erklärung der SSH-Phasen:
+
+* **Schritt 1: Verbindungsaufbau (TCP-Verbindung)**
+  * **Log-Auszug:** `debug1: Connecting to 128.140.85.215 [...] port 22.` -> `debug1: Connection established.`
+  * **Erklärung:** Mein lokaler Rechner (Client) initiiert eine TCP-Verbindung zum entfernten Server auf dem Standard-SSH-Port 22. Der Server antwortet und die grundlegende Netzwerkverbindung wird erfolgreich hergestellt (`Connection established`).
+
+* **Schritt 2: Protokoll- und Banner-Austausch (Handshake)**
+  * **Log-Auszug:** `Local version string SSH-2.0-OpenSSH_for_Windows_9.5` -> `Remote protocol version 2.0, remote software version OpenSSH_10.0p2 Debian-7`
+  * **Erklärung:** In dieser Phase lernen sich die beiden Rechner kennen. Sie tauschen ihre Software-Versionen und Betriebssystem-Informationen aus (Windows OpenSSH 9.5 auf Client-Seite und Debian OpenSSH 10.0p2 auf Server-Seite), um sich auf eine gemeinsame Protokollversion (SSH-2.0) zu einigen.
+
+* **Schritt 3: Authentifizierungsversuch (Authenticating)**
+  * **Log-Auszug:** `debug1: Authenticating to [...] as 'MohammedS1998'` -> `debug1: Next authentication method: publickey, password`
+  * **Erklärung:** Der Server versucht nun, meine Identität für den Benutzer `MohammedS1998` zu überprüfen. Zuerst wird die sichere Public-Key-Methode versucht. Da diese fehlschlägt (z. B. weil der Schlüssel noch nicht hinterlegt war), schaltet das System auf die nächste verfügbare Methode um: die Passworteingabe (`Next authentication method: publickey, password`).
+
+* **Schritt 4: Erfolgreiche Anmeldung und Sitzungsstart (Session Allocation)**
+  * **Log-Auszug:** `Authenticated to [...] using "password".` -> `debug1: channel 0: new session [client-session]`
+  * **Erklärung:** Nach der Eingabe des korrekten Passworts akzeptiert der Server die Authentifizierung (`Authenticated`). Anschließend wird ein neuer sicherer Kanal (`channel 0`) geöffnet und die interaktive Shell-Sitzung (`client-session`) auf dem Remote-Server erfolgreich gestartet.
 ---
 
 ### Task 2: Ed25519 Key Pair
